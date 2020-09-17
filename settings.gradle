@@ -1,0 +1,5 @@
+include ':lib_base'
+include ':medbit_manage'
+include ':medbit_patient'
+include ':app'
+rootProject.name = "Medbit_manage"
