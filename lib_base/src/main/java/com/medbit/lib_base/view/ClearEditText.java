@@ -1,4 +1,4 @@
-package com.medbit.medbit_manage.view;
+package com.medbit.lib_base.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -12,13 +12,13 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.medbit.medbit_manage.R;
+import com.medbit.lib_base.R;
 
 public class ClearEditText extends TextInputEditText implements View.OnTouchListener, View.OnFocusChangeListener, TextWatcher {
 
     private Drawable mClearTextIcon;
-    private OnFocusChangeListener mOnFocusChangeListener;
-    private OnTouchListener mOnTouchListener;
+    private View.OnFocusChangeListener mOnFocusChangeListener;
+    private View.OnTouchListener mOnTouchListener;
 
     public ClearEditText(final Context context) {
         super(context);
@@ -48,12 +48,12 @@ public class ClearEditText extends TextInputEditText implements View.OnTouchList
     }
 
     @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
+    public void setOnFocusChangeListener(View.OnFocusChangeListener l) {
         mOnFocusChangeListener = l;
     }
 
     @Override
-    public void setOnTouchListener(OnTouchListener l) {
+    public void setOnTouchListener(View.OnTouchListener l) {
         mOnTouchListener = l;
     }
 

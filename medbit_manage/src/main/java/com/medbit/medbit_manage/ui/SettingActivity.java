@@ -1,16 +1,16 @@
 package com.medbit.medbit_manage.ui;
 
-        import android.os.Bundle;
-        import android.text.TextUtils;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.medbit.lib_base.base.BaseActivity;
-        import com.medbit.lib_base.constants.Constant;
-        import com.medbit.medbit_manage.R;
-        import com.tencent.mmkv.MMKV;
+import com.medbit.lib_base.base.BaseActivity;
+import com.medbit.lib_base.constants.Constant;
+import com.medbit.medbit_manage.R;
+import com.tencent.mmkv.MMKV;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 

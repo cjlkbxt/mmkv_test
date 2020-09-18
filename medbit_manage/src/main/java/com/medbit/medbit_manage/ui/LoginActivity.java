@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.medbit.lib_base.base.BaseActivity;
 import com.medbit.lib_base.constants.Constant;
+import com.medbit.lib_base.view.ClearEditText;
 import com.medbit.medbit_manage.R;
-import com.medbit.medbit_manage.view.ClearEditText;
 import com.tencent.mmkv.MMKV;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {

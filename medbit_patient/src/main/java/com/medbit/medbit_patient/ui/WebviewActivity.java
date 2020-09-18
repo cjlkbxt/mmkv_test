@@ -1,16 +1,29 @@
 package com.medbit.medbit_patient.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.medbit.lib_base.base.BaseActivity;
 import com.medbit.lib_base.constants.Constant;
+import com.medbit.lib_base.view.CustomDialog;
 import com.medbit.medbit_patient.R;
+import com.tencent.mmkv.MMKV;
 
 public class WebviewActivity extends BaseActivity {
 
@@ -18,12 +31,19 @@ public class WebviewActivity extends BaseActivity {
     private Button mBtnTest;
     private String mBedId;
 
+    private CustomDialog mModifyBedIdDialog;
+    private DisplayMetrics mDisplayMetrics;
+
+    private MMKV mMultiMmkv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mDisplayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
+        mMultiMmkv = MMKV.mmkvWithID(Constant.MMAPID, MMKV.MULTI_PROCESS_MODE);
         mBedId = getIntent().getStringExtra(Constant.KEY_BED_ID);
         String mSiteCode = getIntent().getStringExtra(Constant.KEY_SITE_CODE);
         mWebView = findViewById(R.id.webview);
@@ -73,9 +93,39 @@ public class WebviewActivity extends BaseActivity {
             if (mClickNum == 4) {//因为一次点击走if语句
                 mTempTime = 0;//给临时时间和点击次数进行初始化
                 mClickNum = 0;
-                Toast.makeText(this, "当前床位号为：" + mBedId, Toast.LENGTH_SHORT).show();
+                showModifyBedIdDialog();
             }
         }
+    }
+
+    private void showModifyBedIdDialog() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_modify_bed_id, null);
+        EditText etBedId = contentView.findViewById(R.id.et_bed_id);
+        String content = mMultiMmkv.decodeString(Constant.KEY_BED_ID);
+        etBedId.setText(content);
+        if (!TextUtils.isEmpty(content)) {
+            etBedId.setSelection(content.length());
+        }
+        mModifyBedIdDialog = new CustomDialog.Builder(this).setContentView(contentView)
+                .setGravity(Gravity.CENTER)
+                .setStyle(R.style.dialog)
+                .setHeight(WindowManager.LayoutParams.WRAP_CONTENT)
+                .setWidth((int) (mDisplayMetrics.widthPixels * 0.3))
+                .setCanCancelable(false)
+                .setFirstClickListener(R.id.tv_cancel, v1 -> mModifyBedIdDialog.dismiss())
+                .setSecondClickListener(R.id.tv_confirm, v2 -> {
+                    if (TextUtils.isEmpty(etBedId.getEditableText().toString().trim())) {
+                        Toast.makeText(this, "请输入床位号", Toast.LENGTH_SHORT).show();
+                    } else {
+                        boolean isSuccess = mMultiMmkv.encode(Constant.KEY_BED_ID, etBedId.getEditableText().toString().trim());
+                        if (isSuccess) {
+                            mModifyBedIdDialog.dismiss();
+                            mWebView.reload();
+                        }
+                    }
+                })
+                .build();
+        mModifyBedIdDialog.show();
     }
 
 

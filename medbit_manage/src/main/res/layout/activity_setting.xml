@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.medbit.medbit_manage.view.ClearEditText
+        <com.medbit.lib_base.view.ClearEditText
             android:id="@+id/et_bed_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
