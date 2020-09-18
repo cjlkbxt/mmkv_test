@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.medbit.lib_base.base.BaseActivity;
+import com.medbit.lib_base.constants.Constant;
 import com.medbit.medbit_patient.R;
 
 public class WebviewActivity extends BaseActivity {
@@ -23,13 +24,11 @@ public class WebviewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBedId = getIntent().getStringExtra("bedId");
-        String mSiteCode = getIntent().getStringExtra("siteCode");
+        mBedId = getIntent().getStringExtra(Constant.KEY_BED_ID);
+        String mSiteCode = getIntent().getStringExtra(Constant.KEY_SITE_CODE);
         mWebView = findViewById(R.id.webview);
         mBtnTest = findViewById(R.id.btn_test);
-        mBtnTest.setOnClickListener(view -> {
-            fastClick();
-        });
+        mBtnTest.setOnClickListener(view -> fastClick());
         WebSettings webSettings = mWebView.getSettings();
         // 设置与Js交互的权限
         webSettings.setJavaScriptEnabled(true);

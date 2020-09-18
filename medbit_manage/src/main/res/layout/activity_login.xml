@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.medbit.medbit_manage.view.ClearEditText
-            android:id="@+id/et_input"
+            android:id="@+id/et_psw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/MyEditText" />

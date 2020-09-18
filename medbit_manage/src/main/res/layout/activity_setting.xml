@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.medbit.medbit_manage.view.ClearEditText
-            android:id="@+id/et_input"
+            android:id="@+id/et_bed_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入床位号"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@id/til_input">
 
         <com.medbit.medbit_manage.view.ClearEditText
-            android:id="@+id/et_input2"
+            android:id="@+id/et_site_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入中心号"

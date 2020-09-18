@@ -28,6 +28,7 @@
         </activity>
         <activity
             android:name=".ui.WebviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />

@@ -31,8 +31,8 @@ public class InfoActivity extends BaseActivity implements View.OnClickListener {
         mTvSuggest = findViewById(R.id.tv_suggest);
         mTvConfirm.setOnClickListener(this);
         mMultiMmkv = MMKV.mmkvWithID(Constant.MMAPID, MMKV.MULTI_PROCESS_MODE);
-        mBedId = mMultiMmkv.decodeString(Constant.KEY_BEDNUM, "");
-        mSiteCode = mMultiMmkv.decodeString(Constant.KEY_DEPARTMENTNUM, "");
+        mBedId = mMultiMmkv.decodeString(Constant.KEY_BED_ID, "");
+        mSiteCode = mMultiMmkv.decodeString(Constant.KEY_SITE_CODE, "");
         if (TextUtils.isEmpty(mBedId)) {
             mTvBedId.setText("您还未设置床位号");
             mTvSuggest.setText("请到管理端进行设置");
@@ -47,8 +47,8 @@ public class InfoActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.tv_confirm:
                 Intent intent = new Intent(this, WebviewActivity.class);
-                intent.putExtra("bedId", mBedId);
-                intent.putExtra("siteCode", mSiteCode);
+                intent.putExtra(Constant.KEY_BED_ID, mBedId);
+                intent.putExtra(Constant.KEY_SITE_CODE, mSiteCode);
                 startActivity(intent);
                 finish();
                 break;
