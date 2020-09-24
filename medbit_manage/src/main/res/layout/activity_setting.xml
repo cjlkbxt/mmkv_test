@@ -5,56 +5,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_input"
+    <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:hintTextAppearance="@style/MyHintText"
+        android:layout_height="60dp"
+        android:background="@drawable/blue_btn_bg"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.medbit.lib_base.view.ClearEditText
-            android:id="@+id/et_bed_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入床位号"
-            android:text="26"
-            android:theme="@style/MyEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="欢迎您使用管理端"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_input2"
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_index_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:hintTextAppearance="@style/MyHintText"
+        android:layout_marginTop="36dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_title">
 
-        app:layout_constraintTop_toBottomOf="@id/til_input">
-
-        <com.medbit.medbit_manage.view.ClearEditText
-            android:id="@+id/et_site_code"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请输入中心号"
-            android:text="b310543"
-            android:theme="@style/MyEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:drawableStart="@drawable/icon_finish"
+            android:drawablePadding="8dp"
+            android:text="管理员验证"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确定"
+        <View
+            android:layout_width="200dp"
+            android:layout_height="1px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_blue_2"
+            android:drawablePadding="8dp"
+            android:text="输入信息"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="36dp"
+        android:background="@drawable/search_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_input2" />
+        app:layout_constraintTop_toBottomOf="@id/ll_index_info">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="床位号:" />
+
+            <com.medbit.lib_base.view.ClearEditText
+                android:id="@+id/et_bed_id"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/login_edittext_bg"
+                android:drawableLeft="@drawable/icon_keyboard"
+                android:drawableRight="@drawable/icon_clear"
+                android:drawablePadding="12dp"
+                android:hint="请输入床位号"
+                android:maxLength="18"
+                android:padding="12dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#bbbbbb"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中心号:" />
+
+            <com.medbit.lib_base.view.ClearEditText
+                android:id="@+id/et_site_code"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/login_edittext_bg"
+                android:drawableLeft="@drawable/icon_keyboard"
+                android:drawableRight="@drawable/icon_clear"
+                android:drawablePadding="12dp"
+                android:hint="请输入中心号"
+                android:maxLength="18"
+                android:padding="12dp"
+                android:singleLine="true"
+                android:text="b310543"
+                android:textColor="#333333"
+                android:textColorHint="#bbbbbb"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/first_btn_bg"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

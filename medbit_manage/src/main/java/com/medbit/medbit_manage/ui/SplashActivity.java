@@ -2,8 +2,6 @@ package com.medbit.medbit_manage.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.medbit.lib_base.base.BaseActivity;

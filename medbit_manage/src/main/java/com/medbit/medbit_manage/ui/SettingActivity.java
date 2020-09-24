@@ -16,43 +16,59 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private EditText mEtBedId;
     private EditText mEtSiteCode;
-    private TextView mConfirm;
+    private TextView mTvSave;
     private MMKV mMultiMmkv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
         mMultiMmkv = MMKV.mmkvWithID(Constant.MMAPID, MMKV.MULTI_PROCESS_MODE);
 
         mEtBedId = findViewById(R.id.et_bed_id);
         mEtSiteCode = findViewById(R.id.et_site_code);
+        mTvSave = findViewById(R.id.tv_save);
 
-        mEtBedId.setText(mMultiMmkv.decodeString(Constant.KEY_BED_ID));
-        if (TextUtils.isEmpty(mMultiMmkv.decodeString(Constant.KEY_SITE_CODE))) {
-            mEtSiteCode.setText("b310543");
-        } else {
-            mEtSiteCode.setText(mMultiMmkv.decodeString(Constant.KEY_SITE_CODE));
+        String bedId = mMultiMmkv.decodeString(Constant.KEY_BED_ID);
+        mEtBedId.setText(bedId);
+        if (!TextUtils.isEmpty(bedId)) {
+            mEtBedId.setSelection(bedId.length());
         }
 
-        mConfirm = findViewById(R.id.tv_confirm);
-        mConfirm.setOnClickListener(this);
+        String siteCode = mMultiMmkv.decodeString(Constant.KEY_SITE_CODE);
+
+        if (TextUtils.isEmpty(siteCode)) {
+            siteCode = "b310543";
+        }
+        mEtSiteCode.setText(siteCode);
+        mEtSiteCode.setSelection(siteCode.length());
+
+        mTvSave.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_confirm:
+            case R.id.tv_save:
+                if (TextUtils.isEmpty(mEtBedId.getEditableText().toString().trim())) {
+                    Toast.makeText(this, "请输入床位号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(mEtSiteCode.getEditableText().toString().trim())) {
+                    Toast.makeText(this, "请输入中心号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 boolean isSuccess = mMultiMmkv.encode(Constant.KEY_BED_ID, mEtBedId.getEditableText().toString().trim());
                 mMultiMmkv.encode(Constant.KEY_SITE_CODE, mEtSiteCode.getEditableText().toString().trim());
                 if (isSuccess) {
                     Toast.makeText(this, "床位号:" + mMultiMmkv.decodeString(Constant.KEY_BED_ID) + "\n设置成功！", Toast.LENGTH_LONG).show();
                     finish();
                 }
-
                 break;
             default:
                 break;
         }
     }
+
 }

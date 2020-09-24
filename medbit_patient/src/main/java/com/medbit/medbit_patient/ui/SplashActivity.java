@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void OnSuccess() {
                 MMKV.initialize(Constant.ROOT_DIR);
-                Intent intent = new Intent(SplashActivity.this, InfoActivity.class);
+                Intent intent = new Intent(SplashActivity.this, WebviewActivity.class);
                 startActivity(intent);
                 finish();
             }

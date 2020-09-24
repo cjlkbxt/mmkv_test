@@ -5,33 +5,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_input"
+    <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:hintTextAppearance="@style/MyHintText"
+        android:layout_height="60dp"
+        android:background="@drawable/blue_btn_bg"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.medbit.medbit_manage.view.ClearEditText
-            android:id="@+id/et_psw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/MyEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="欢迎您使用管理端"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_confirm"
-        android:layout_width="wrap_content"
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_index_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="确定"
+        android:layout_marginTop="36dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_input" />
+        app:layout_constraintTop_toBottomOf="@id/rl_title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_blue_1"
+            android:drawablePadding="8dp"
+            android:text="管理员验证"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="240dp"
+            android:layout_height="1px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_grey_2"
+            android:drawablePadding="8dp"
+            android:text="输入信息"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="36dp"
+        android:background="@drawable/search_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_index_info">
+
+        <com.medbit.lib_base.view.ClearEditText
+            android:id="@+id/et_psw"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_edittext_bg"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawableRight="@drawable/icon_clear"
+            android:drawablePadding="12dp"
+            android:maxLength="18"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textColorHint="#bbbbbb"
+            android:textSize="16sp"
+            tools:hint="请输入管理员密码" />
+
+        <TextView
+            android:id="@+id/tv_next_step"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/first_btn_bg"
+            android:enabled="false"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_clear"

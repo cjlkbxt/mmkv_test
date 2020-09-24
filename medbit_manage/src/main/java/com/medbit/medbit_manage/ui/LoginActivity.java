@@ -2,7 +2,9 @@ package com.medbit.medbit_manage.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +19,7 @@ import com.tencent.mmkv.MMKV;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private ClearEditText mEtPsw;
-    private TextView mTvConfirm;
+    private TextView mTvNextStep;
     private Button mBtnClear;
     private MMKV mMultiMmkv;
 
@@ -29,52 +31,63 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mMultiMmkv = MMKV.mmkvWithID(Constant.MMAPID, MMKV.MULTI_PROCESS_MODE);
-        initViews();
-        initListener();
-    }
-
-    private void initViews() {
         mEtPsw = findViewById(R.id.et_psw);
-        mTvConfirm = findViewById(R.id.tv_confirm);
+        mTvNextStep = findViewById(R.id.tv_next_step);
         mBtnClear = findViewById(R.id.btn_clear);
-        if (TextUtils.isEmpty(mMultiMmkv.decodeString(Constant.KEY_PSW, ""))) {
+
+        mTvNextStep.setOnClickListener(this);
+        mBtnClear.setOnClickListener(this);
+
+        String psw = mMultiMmkv.decodeString(Constant.KEY_PSW, "");
+        if (TextUtils.isEmpty(psw)) {
             mEtPsw.setHint("请设置管理员密码");
         } else {
             mEtPsw.setHint("请输入管理员密码");
         }
-    }
+        mEtPsw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    private void initListener() {
-        mTvConfirm.setOnClickListener(this);
-        mBtnClear.setOnClickListener(this);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(editable.toString())) {
+                    mTvNextStep.setEnabled(false);
+                } else {
+                    mTvNextStep.setEnabled(true);
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_confirm:
-                if (!TextUtils.isEmpty(mEtPsw.getEditableText().toString().trim())) {
-                    if (TextUtils.isEmpty(mMultiMmkv.decodeString(Constant.KEY_PSW))) { //没设置过密码
-                        boolean isSuccess = mMultiMmkv.encode(Constant.KEY_PSW, mEtPsw.getEditableText().toString().trim());
-                        if (isSuccess) {
-                            Toast.makeText(this, "设置成功！", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this, SettingActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(this, "设置失败，请重新设置！", Toast.LENGTH_SHORT).show();
-                        }
-                    } else { //设置过密码
-                        if (TextUtils.equals(mEtPsw.getEditableText().toString().trim(), mMultiMmkv.decodeString(Constant.KEY_PSW))) {
-                            Intent intent = new Intent(this, SettingActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(this, "密码不正确，请重新输入！", Toast.LENGTH_SHORT).show();
-                        }
+            case R.id.tv_next_step:
+                if (TextUtils.isEmpty(mMultiMmkv.decodeString(Constant.KEY_PSW))) { //没设置过密码
+                    boolean isSuccess = mMultiMmkv.encode(Constant.KEY_PSW, mEtPsw.getEditableText().toString().trim());
+                    if (isSuccess) {
+                        Toast.makeText(this, "设置成功！", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, SettingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "设置失败，请重新设置！", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(this, "请输入管理员密码", Toast.LENGTH_SHORT).show();
+                } else { //设置过密码
+                    if (TextUtils.equals(mEtPsw.getEditableText().toString().trim(), mMultiMmkv.decodeString(Constant.KEY_PSW))) {
+                        Intent intent = new Intent(this, SettingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "密码不正确，请重新输入！", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             case R.id.btn_clear:
@@ -109,4 +122,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         }
     }
+
 }
