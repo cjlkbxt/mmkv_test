@@ -1,6 +1,7 @@
 package com.medbit.medbit_patient.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,22 +18,30 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        requestAll(new OnPermissionsResultListener() {
-            @Override
-            public void OnSuccess() {
-                MMKV.initialize(Constant.ROOT_DIR);
-                Intent intent = new Intent(SplashActivity.this, WebviewActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestAll(new OnPermissionsResultListener() {
+                @Override
+                public void OnSuccess() {
+                    MMKV.initialize(Constant.ROOT_DIR);
+                    Intent intent = new Intent(SplashActivity.this, WebviewActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
 
-            @Override
-            public void OnFail(List<String> failedPermissionList) {
-                Toast.makeText(SplashActivity.this, "患者端需要请求存储权限", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+                @Override
+                public void OnFail(List<String> failedPermissionList) {
+                    Toast.makeText(SplashActivity.this, "患者端需要请求存储权限", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+        } else {
+            MMKV.initialize(Constant.ROOT_DIR);
+            Intent intent = new Intent(SplashActivity.this, WebviewActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 }
