@@ -23,6 +23,7 @@ import com.tencent.mmkv.MMKV;
 
 public class WebviewActivity extends BaseActivity {
 
+    private final static String BASE_URL = "http://192.168.10.212:3001/";
     private WebView mWebView;
     private Button mBtnTest;
 
@@ -49,10 +50,8 @@ public class WebviewActivity extends BaseActivity {
         webSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
-//        mWebView.loadUrl("http://localhost:3001/patientApp/account/mid.html?siteCode=b310543&bedId=26");
-        String url = "http://192.168.10.212:3001/patientApp/account/mid.html?siteCode=" + mMultiMmkv.decodeString(Constant.KEY_SITE_CODE) + "&bedId=" + mMultiMmkv.decodeString(Constant.KEY_BED_ID);
-//        String url = "http://192.168.10.212:3001/patientApp/account/mid.html?siteCode=b310543&bedId=26";
-//        String url = "http://192.168.10.126:17100/patientApp/account/crf.html?patientCode=290001&visitId=1&patientName=%E9%99%88%E6%B3%A2&siteCode=b310541&siteName=%E8%A5%BF%E4%BA%AC%E6%B6%88%E5%8C%96%E4%B8%80%E7%A7%91&inHospitalDate=2019-8-10&bedId=1&dutyNurse=%E8%B5%B5%E4%B8%BD%E4%B8%BD&staffId=A11#1";
+        String url = BASE_URL + "patientApp/account/mid.html?siteCode=" + mMultiMmkv.decodeString(Constant.KEY_SITE_CODE, "b310541")
+                + "&bedId=" + mMultiMmkv.decodeString(Constant.KEY_BED_ID, "111");
         mWebView.loadUrl(url);
     }
 
@@ -113,7 +112,8 @@ public class WebviewActivity extends BaseActivity {
                         if (isSuccess) {
                             mModifyBedIdDialog.dismiss();
 //                            mWebView.reload();
-                            String url = "http://192.168.10.212:3001/patientApp/account/mid.html?siteCode=" + mMultiMmkv.decodeString(Constant.KEY_SITE_CODE) + "&bedId=" + mMultiMmkv.decodeString(Constant.KEY_BED_ID);
+                            String url = BASE_URL + "patientApp/account/mid.html?siteCode=" + mMultiMmkv.decodeString(Constant.KEY_SITE_CODE, "b310541")
+                                    + "&bedId=" + mMultiMmkv.decodeString(Constant.KEY_BED_ID, "111");
                             mWebView.loadUrl(url);
                         }
                     }

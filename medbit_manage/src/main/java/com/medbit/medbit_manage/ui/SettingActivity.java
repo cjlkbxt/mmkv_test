@@ -30,17 +30,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mEtSiteCode = findViewById(R.id.et_site_code);
         mTvSave = findViewById(R.id.tv_save);
 
-        String bedId = mMultiMmkv.decodeString(Constant.KEY_BED_ID);
+        String bedId = mMultiMmkv.decodeString(Constant.KEY_BED_ID, "111");
         mEtBedId.setText(bedId);
-        if (!TextUtils.isEmpty(bedId)) {
-            mEtBedId.setSelection(bedId.length());
-        }
+        mEtBedId.setSelection(bedId.length());
 
-        String siteCode = mMultiMmkv.decodeString(Constant.KEY_SITE_CODE);
-
-        if (TextUtils.isEmpty(siteCode)) {
-            siteCode = "b310543";
-        }
+        String siteCode = mMultiMmkv.decodeString(Constant.KEY_SITE_CODE, "b310541");
         mEtSiteCode.setText(siteCode);
         mEtSiteCode.setSelection(siteCode.length());
 
